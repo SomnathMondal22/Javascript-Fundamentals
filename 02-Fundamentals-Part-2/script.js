@@ -369,4 +369,102 @@ const john = {
           console.log(`${mark.fullName} BMI ${mark.bmi} is higher than ${john.fullName} ${john.bmi}  !`)
 
  }
-*/
+
+
+//for-loop
+
+for (let rep = 1; rep <= 10; rep++) {
+  console.log(`Rep number: ${rep}`);
+}
+
+
+const somnathArray = [
+  'Somnath',
+  'Mondal',
+  2025 - 2000,
+  'engineer',
+  ['Michael', 'Peter', 'Steven'],
+  true,
+];
+const types = [];
+
+for (let i = 0; i < somnathArray.length; i++) {
+  console.log(somnathArray[i], typeof somnathArray[i]);
+
+  // types[i] = typeof somnathArray[i];
+  types.push(typeof somnathArray[i]);
+}
+
+console.log(types);
+
+const years = [1991, 2007, 2000, 2025];
+
+const ages = [];
+
+for (let i = 0; i < years.length; i++) {
+  ages.push(2037 - years[i]);
+}
+
+console.log(ages);
+
+//continue vs break
+
+console.log('---ONLY STRINGS---');
+for (let i = 0; i < somnathArray.length; i++) {
+  if (typeof somnathArray[i] != 'string') continue;
+  console.log(somnathArray[i], typeof somnathArray[i]);
+}
+
+console.log('---BREAK WITH NUMBER---');
+for (let i = 0; i < somnathArray.length; i++) {
+  if (typeof somnathArray[i] === 'number') break;
+  console.log(somnathArray[i], typeof somnathArray[i]);
+}
+
+//break will completely terminate the whole loop and not only the current iteration.
+
+//continue will terminate only the current iteration and move on to the next one.
+
+
+//Looping backwards.
+
+const somnathArray = [
+  'Somnath',
+  'Mondal',
+  2025 - 2000,
+  'engineer',
+  ['Michael', 'Peter', 'Steven'],
+  true,
+];
+
+for (let i = somnathArray.length - 1; i >= 0; i--) {
+  console.log(somnathArray[i]);
+}
+
+//Loop inside loop
+
+for (let i = 0; i <= 3; i++) {
+  console.log(`This is the OUTER LOOP ${i}😍`);
+  for (let j = 0; j <= 3; j++) {
+    console.log(`This is an inner loop ${j}😊`);
+  }
+}
+
+
+//The while loop
+
+let rep = 0;
+while (rep <= 10) {
+  console.log(`REP ${rep}`);
+  rep++;
+}
+
+let dice = Math.trunc(Math.random() * 6 + 1);
+while (dice != 6) {
+  console.log(`You rolled a ${dice}`);
+  dice = Math.trunc(Math.random() * 6 + 1);
+  if (dice === 6) {
+    console.log(`Loop is about to end`);
+  }
+}
+  */
