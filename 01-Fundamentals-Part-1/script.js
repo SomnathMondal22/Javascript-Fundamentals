@@ -1,4 +1,4 @@
-/*let js = 'amazing';
+let js = 'amazing';
 console.log(40 + 35);
 
 console.log('Somnath Mondal');
@@ -11,7 +11,7 @@ console.log(firstName);
 
 let myFirstJob = 'programmer'; //proper way of naming variable
 
- Data Types:
+/*Data Types:
 1) Primitive data type: Number, string, boolean, undefined, null, BigInt, Symbol
 
 Undefined is a value taken by a variable that is not yet defined(empty value)
@@ -23,7 +23,7 @@ Symbol: Value that is unique and cannot be changed
 BigInt: Large integers that the Number type can hold
 
  JS has dynamic typing: We do not have to manually define the data type of the value stored in a variable. Instead, data types are determined automatically.
-
+*/
 
 console.log(true);
 console.log(typeof true);
@@ -43,9 +43,9 @@ console.log(nullValue);
 
 console.log(typeof null); //Returns object(bug)
 
-***** let, const and var *****
+// ***** let, const and var *****
 
-let and const were introduced in ES6 whereas var is the old way of declaring variables.
+// let and const were introduced in ES6 whereas var is the old way of declaring variables.
 
 let age = 30;
 age = 31; //Reassigning , mutating
@@ -68,7 +68,6 @@ job = 'teacher';
 lastName = 'Mondal'; //Not recommended
 console.log(lastName);
 
-
 // **** Operators **********
 const now = 2025;
 const ageSomnath = now - 2000;
@@ -76,10 +75,10 @@ const ageSarah = now - 2019;
 
 console.log(ageSomnath, ageSarah);
 
-const firstName = 'Somnath';
-const lastName = 'Mondal';
+// const firstName = 'Somnath';
+// const lastName = 'Mondal';
 
-console.log(firstName + ' ' + lastName);
+// console.log(firstName + ' ' + lastName);
 
 let x = 10 + 5; // x=15
 x += 10; // x= x+10 =>25
@@ -114,15 +113,14 @@ console.log(averageAge);
 // const averageAge1 = (ageSarah + ageSomnath) / 3;
 // console.log(averageAge1);
 
-
-const firstName = 'Somnath';
-const lastName = 'Mondal';
+const firstName1 = 'Somnath';
+const lastName1 = 'Mondal';
 const job = 'programmer';
-const birthYear = 2000;
+const birthYear2 = 2000;
 const year = 2025;
 
-const somnath = `I'm ${firstName} ${lastName}, a ${
-  year - birthYear
+const somnath = `I'm ${firstName1} ${lastName1}, a ${
+  year - birthYear2
 } years old ${job}. `; //This is a template literal ``. We use a ${} sign and inside we enter the variable or expression.
 
 console.log(somnath);
@@ -133,23 +131,22 @@ console.log(`This is a
 multi-line 
 string`);
 
-
 //if-else control structure.
 
-const age = 15;
-const isOldEnough = age >= 18;
+const age3 = 15;
+const isOldEnough = age3 >= 18;
 
 if (isOldEnough) {
   console.log(`Eligible to drive :)`);
 } else {
-  const yearsLeft = 18 - age;
+  const yearsLeft = 18 - age3;
   console.log(`Too young to drive. Another ${yearsLeft} years left.`);
 }
 
-const birthYear = 2000;
+const birthYear1 = 2000;
 
 let century;
-if (birthYear <= 2000) {
+if (birthYear1 <= 2000) {
   century = 20;
 } else {
   century = 21;
@@ -157,12 +154,11 @@ if (birthYear <= 2000) {
 
 console.log(century);
 
-
 //Type conversion and type coercion
 
----**  JavaScript is a dynamically typed language, meaning variables can hold values of any type, and their types can change during runtime. This flexibility is achieved through type conversion and type coercion. **------
+/* JavaScript is a dynamically typed language, meaning variables can hold values of any type, and their types can change during runtime. This flexibility is achieved through type conversion and type coercion. **------
 
-1) Type conversion(explicit conversion): This occurs when you manually convert a value from one type to another using built-in methods or operators.
+1) Type conversion(explicit conversion): This occurs when you manually convert a value from one type to another using built-in methods or operators.*/
 
 const inputYear = '2000';
 console.log(Number(inputYear), inputYear);
@@ -186,7 +182,6 @@ let n = '1' + 1;
 n = n - 1;
 console.log(n);
 
-
 //5 falsy values : 0 ,null , ''. undefined, NaN
 //all these values will return false when we try to convert them to boolean.
 
@@ -209,7 +204,7 @@ if (money) {
   console.log('You should get a job');
 }
 
-let height ;
+let height;
 if (height) {
   console.log('YAY! Height is defined');
 } else {
@@ -219,8 +214,8 @@ if (height) {
 //Equality operators:
 
 //1) Strict equality operator (===): Does not perform type coercion,
-const age = 18;
-if (age === 18) console.log('You just became an adult'); //
+const age1 = 18;
+if (age1 === 18) console.log('You just became an adult'); //
 
 //2) Loose equality operator(==): Performs type coercion.
 
@@ -242,13 +237,13 @@ if (favourite === 23) {
 if (favourite !== 23) {
   console.log('Why not 23 !!');
 }
-  
+/* 
 Boolan logic: AND,OR,NOT
 
 AND: True when all are true.
 OR: true even one is true
 NOT: Reverses the true/false value
-
+*/
 //Logical operator
 
 const hasDriversLicense = true; //A
@@ -260,11 +255,11 @@ console.log(!hasDriversLicense);
 
 const shouldDrive = hasDriversLicense && hasGoodVision;
 
-// if (shouldDrive) {
-//   console.log('Sarah is able to drive!');
-// } else {
-//   console.log('Someone else should drive..');
-// }
+if (shouldDrive) {
+  console.log('Sarah is able to drive!');
+} else {
+  console.log('Someone else should drive..');
+}
 
 const isTired = false; //C
 console.log(hasDriversLicense || hasGoodVision || isTired);
@@ -274,7 +269,6 @@ if (shouldDrive && !isTired) {
 } else {
   console.log('Someone else should drive..');
 }
-
 
 const day = 'monday';
 
@@ -323,7 +317,6 @@ if (day === 'monday') {
   console.log('Not a week day');
 }
 
-
 // Statement vs expression
 
 //A expression is a piece of code that produces a value.
@@ -341,14 +334,14 @@ if (23 > 10) {
 const me = 'Somnath';
 console.log(`I'm ${2025 - 2000} years old. My name is ${me}. `);
 
+/********The conditional ( ternary )operator; ********
 
-The conditional ( ternary )operator;
+            condition ? expressionIfTrue : expressionIfFalse;
+*/
 
-condition ? expressionIfTrue : expressionIfFalse;
+const age2 = 23;
 
-const age = 23;
-
-age >= 23
+age2 >= 23
   ? console.log(`I like to drink `)
   : console.log(`You should drink milk`);
 
@@ -357,4 +350,3 @@ const drink = age >= 18 ? 'drink' : 'dont drink';
 console.log(drink);
 
 console.log(`I like to drink ${age >= 18 ? 'redbool' : 'Water'}`);
-*/
