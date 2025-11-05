@@ -4,6 +4,7 @@
 /*
 // PROBLEM 1:
 // We work for a company building a smart home thermometer. Our most recent task is this: "Given an array of temperatures of one day, calculate the temperature amplitude. Keep in mind that sometimes there might be a sensor error."
+*/
 
 const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5];
 
@@ -18,15 +19,15 @@ const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5];
 // - Find min value in temp array
 // - Subtract min from max (amplitude) and return it
 
-// const calcTempAmplitude = function (temps) {
-//   let max = temps[0];
-//   for (let i = 0; i < temps.length; i++) {
-//     if (temps[i] > max) max = temps[i];
-//   }
-//   console.log(max);
-// };
+const calcTempAmplitude1 = function (temps) {
+  let max = temps[0];
+  for (let i = 0; i < temps.length; i++) {
+    if (temps[i] > max) max = temps[i];
+  }
+  console.log(max);
+};
 
-// calcTempAmplitude([3, 4, 6]);
+calcTempAmplitude1([3, 4, 6]);
 
 const calcTempAmplitude = function (t1, t2) {
   const temps = t1.concat(t2);
@@ -58,8 +59,6 @@ console.log(amplitude);
 //2) Breaking up in sub-problems
 //-How to merge two arrays. > Use concat method
 
-
-
 const measurekelvin = function () {
   const measurement = {
     type: 'temp',
@@ -74,7 +73,7 @@ const measurekelvin = function () {
 console.log(measurekelvin());
 
 //--------------------------------
-//// Coding Challenge #1
+/* Coding Challenge #1
 
 
 Given an array of forecasted maximum temperatures, the thermometer displays a string with these temperatures.
@@ -90,19 +89,20 @@ TEST DATA 2: [12, 5, -5, 0, 4]
 
 
 
-// 1) Understanding the problem
-// - Array transformed to string, separated by ...
-// - What is the X days? Answer: index + 1
+1) Understanding the problem
+- Array transformed to string, separated by ...
+- What is the X days? Answer: index + 1
 
-// 2) Breaking up into sub-problems
-// - Transform array into string
-// - Transform each element to string with ºC
-// - Strings needs to contain day (index + 1)
-// - Add ... between elements and start and end of string
-// - Log string to console
+2) Breaking up into sub-problems
+- Transform array into string
+- Transform each element to string with ºC
+- Strings needs to contain day (index + 1)
+- Add ... between elements and start and end of string
+- Log string to console
+*/
 
-const data1 = [17, 21, 23];
-const data2 = [12, 5, -5, 0, 4];
+// const data1 = [17, 21, 23];
+// const data2 = [12, 5, -5, 0, 4];
 
 const data1 = [17, 21, 23];
 const data2 = [12, 5, -5, 0, 4];
@@ -115,7 +115,7 @@ const temp = function (arr) {
   }
   return str;
 };
-`
+
 const temperature = temp(data1);
 console.log(temperature);
 
