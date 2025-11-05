@@ -1,13 +1,12 @@
 'use strict';
 
-/*let hasDriversLicense = false;
+let hasDriversLicense = false;
 const passTest = true;
 
 if (passTest) hasDriversLicense = true;
 if (hasDriversLicense) console.log('I can drive');
 
 const interface = 'Audio';
-
 
 // A function is a reusable piece of code that performs some task.
 
@@ -31,14 +30,13 @@ console.log(fruitProcessor(4, 6));
 const appleOrangeJuice = fruitProcessor(2, 4);
 console.log(appleOrangeJuice);
 
-
 //Function declaration: They can be called before defining it.(due to hoisting)
 
 function calcAge1(birthYear) {
   return 2025 - birthYear;
 }
-const age1 = calcAge1(2000);
-console.log(age1);
+const ageOne = calcAge1(2000);
+console.log(ageOne);
 
 // Function expression.
 
@@ -46,9 +44,8 @@ const calcAge2 = function (birthYear) {
   return 2037 - birthYear;
 };
 
-const age2 = calcAge2(2000);
-console.log(age2);
-
+const ageTwo = calcAge2(2000);
+console.log(ageTwo);
 
 //Arrow function(Added in ES6)
 
@@ -56,15 +53,14 @@ const calcAge3 = (birthYear) => 2040 - birthYear;
 
 console.log(calcAge3(2000));
 
-const yearsUntilRetirement = (birthYear, firstName) => {
+const yearsUntilRetirement1 = (birthYear, firstName) => {
   const age = 2025 - birthYear;
   const retirement = 65 - age;
   return `${firstName} retires in ${retirement} years.`;
 };
 
-console.log(yearsUntilRetirement(2000, 'Somnath'));
-console.log(yearsUntilRetirement(1994, 'Bob'));
-
+console.log(yearsUntilRetirement1(2000, 'Somnath'));
+console.log(yearsUntilRetirement1(1994, 'Bob'));
 
 function cutFruitPieces(fruit) {
   return fruit * 4;
@@ -79,13 +75,12 @@ function fruitProcessor(apples, oranges) {
 
 console.log(fruitProcessor(5, 10));
 
-
-const calcAge = function (birthYear) {
+const calcAge1 = function (birthYear) {
   return 2037 - birthYear;
 };
 
 const yearsUntilRetirement = function (birthYear, firstName) {
-  const age = calcAge(birthYear);
+  const age = calcAge1(birthYear);
   const retirement = 65 - age;
 
   if (retirement > 0) {
@@ -97,7 +92,6 @@ const yearsUntilRetirement = function (birthYear, firstName) {
 
 console.log(yearsUntilRetirement(2000, 'Somu'));
 console.log(yearsUntilRetirement(1950, 'Bob'));
-
 
 //Arrays : Arrays in JavaScript are a fundamental data structure used to store multiple values in a single variable
 
@@ -122,10 +116,10 @@ console.log(friends);
 //Only primitive values are immutable in const and array is not a primitive data type. so we can mutate it.
 
 const firstName = 'Somnath';
-const somnath = [firstName, 'Mondal', 2025 - 2000, 'professional', friends];
+const somu = [firstName, 'Mondal', 2025 - 2000, 'professional', friends];
 
-console.log(somnath);
-console.log(somnath.length);
+console.log(somu);
+console.log(somu.length);
 
 //Exercise
 
@@ -133,19 +127,19 @@ const calcAge = function (birthYear) {
   return 2037 - birthYear;
 };
 
-const years = [1990, 1993, 2000, 2004];
+const years1 = [1990, 1993, 2000, 2004];
 
-const age1 = calcAge(years[0]);
-const age2 = calcAge(years[1]);
-const age3 = calcAge(years[years.length - 1]);
+const age1 = calcAge(years1[0]);
+const age2 = calcAge(years1[1]);
+const age3 = calcAge(years1[years1.length - 1]);
 console.log(age1, age2, age3);
 
-const ages = [
-  calcAge(years[0]),
-  calcAge(years[1]),
-  calcAge(years[years.length - 1]),
+const ages1 = [
+  calcAge(years1[0]),
+  calcAge(years1[1]),
+  calcAge(years1[years1.length - 1]),
 ];
-console.log(ages);
+console.log(ages1);
 
 //----------------------------------------------------
 
@@ -203,7 +197,6 @@ if (friends.includes('Peter')) {
   console.log('You have a friend :)');
 }
 
-
 //Objects : Objects in JavaScript are a fundamental data structure used to store collections of related data and functionality. They are made up of key-value pairs, where each key (also called a property name) is a string, and the value can be any data type, including other objects or functions.
 
 const somnath = {
@@ -225,7 +218,7 @@ const nameKey = 'Name';
 console.log(somnath['first' + nameKey]);
 console.log(somnath['last' + nameKey]);
 
-We can put any expression in square bracket.
+// We can put any expression in square bracket.
 
 const interestedIn = prompt(
   'What do you want to know about Somnath? Choose between firstName, lastName, age, job and friends.'
@@ -242,7 +235,7 @@ somnath['maritalStatus'] = 'Unmarried';
 
 console.log(somnath);
 
-CHALLENGE---**********
+// CHALLENGE---**********
 
 console.log(
   `${somnath.firstName} has ${
@@ -251,8 +244,6 @@ console.log(
     somnath.friends[somnath.friends.length - 1]
   }.`
 );
-
-
 
 //Object keys are always strings . only exception is Symbol.
 
@@ -310,8 +301,7 @@ console.log(somnath.getSummary());
 
 //NOTE: Arrays are also special kinds of objects. That's why we can use methods on them
 
-
-//CHALLENGE
+/*CHALLENGE
 
 CHALLENGE #3
 Let's go back to Mark and John comparing their BMIs!
@@ -329,47 +319,43 @@ Log to the console who has the higher BMI, together with the full name and the r
 TEST DATA: Marks weighs 78 kg and is 1.69 m tall. John weighs 92 kg and is 1.95 m tall.
 
 
- Write your code below. Good luck! 🙂 
+ Write your code below. Good luck! 🙂 */
 
 const mark = {
-    fullName: 'Mark Miller',
-    mass: 78,
-    height : 1.69,
-    calcBMI : function(){
-        this.bmi = this.mass/(this.height * this.height);
-        return this.bmi
-    }
-    
-}
+  fullName: 'Mark Miller',
+  mass: 78,
+  height: 1.69,
+  calcBMI: function () {
+    this.bmi = this.mass / (this.height * this.height);
+    return this.bmi;
+  },
+};
 
- const markBmi = mark.calcBMI();
- console.log(markBmi)
-
+const markBmi = mark.calcBMI();
+console.log(markBmi);
 
 const john = {
-    fullName: 'John Smith',
-    mass: 92,
-    height: 1.95,
-     calcBMI : function(){
-        this.bmi = this.mass/(this.height * this.height);
-                return this.bmi
+  fullName: 'John Smith',
+  mass: 92,
+  height: 1.95,
+  calcBMI: function () {
+    this.bmi = this.mass / (this.height * this.height);
+    return this.bmi;
+  },
+};
 
-    }
-    
+const johnBmi = john.calcBMI();
+console.log(johnBmi);
+
+if (johnBmi > markBmi) {
+  console.log(
+    `${john.fullName} BMI ${john.bmi} is higher than ${mark.fullName} ${mark.bmi}  !`
+  );
+} else {
+  console.log(
+    `${mark.fullName} BMI ${mark.bmi} is higher than ${john.fullName} ${john.bmi}  !`
+  );
 }
-
- const johnBmi = john.calcBMI();
- console.log(johnBmi)
- 
- 
- if(  johnBmi >markBmi){
-     console.log(`${john.fullName} BMI ${john.bmi} is higher than ${mark.fullName} ${mark.bmi}  !`)
- }
- else{
-          console.log(`${mark.fullName} BMI ${mark.bmi} is higher than ${john.fullName} ${john.bmi}  !`)
-
- }
-
 
 //for-loop
 
@@ -377,8 +363,7 @@ for (let rep = 1; rep <= 10; rep++) {
   console.log(`Rep number: ${rep}`);
 }
 
-
-const somnathArray = [
+const somnathArray1 = [
   'Somnath',
   'Mondal',
   2025 - 2000,
@@ -388,11 +373,11 @@ const somnathArray = [
 ];
 const types = [];
 
-for (let i = 0; i < somnathArray.length; i++) {
-  console.log(somnathArray[i], typeof somnathArray[i]);
+for (let i = 0; i < somnathArray1.length; i++) {
+  console.log(somnathArray1[i], typeof somnathArray1[i]);
 
   // types[i] = typeof somnathArray[i];
-  types.push(typeof somnathArray[i]);
+  types.push(typeof somnathArray1[i]);
 }
 
 console.log(types);
@@ -425,7 +410,6 @@ for (let i = 0; i < somnathArray.length; i++) {
 
 //continue will terminate only the current iteration and move on to the next one.
 
-
 //Looping backwards.
 
 const somnathArray = [
@@ -450,7 +434,6 @@ for (let i = 0; i <= 3; i++) {
   }
 }
 
-
 //The while loop
 
 let rep = 0;
@@ -467,4 +450,3 @@ while (dice != 6) {
     console.log(`Loop is about to end`);
   }
 }
-  */
