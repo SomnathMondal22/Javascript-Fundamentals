@@ -1,3 +1,5 @@
+// JS FUNDAMENTALS PART 1
+
 let js = 'amazing';
 console.log(40 + 35);
 
