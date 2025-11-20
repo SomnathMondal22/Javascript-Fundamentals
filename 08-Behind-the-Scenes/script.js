@@ -343,3 +343,56 @@ calcAge(1991);
 
 // console.log(age); //Not accessible..
 //printAge();  //Reference error .
+
+/*************************************************************************************************
+
+
+ >> HOISTING IN JAVASCRIPT:
+
+Hoisting : Makes some types of variables accessible/usable in the code before they are actually decl ared. "Variables lifted to top of their scope"
+
+>> Behind the scenes : The code is basically scanned for variable declarations before it is executed. So this happens during the so called creation phase of the execution context. Then for each variable that is found in the code, a new property is created in a variable environment object. And that's how hoisting really works.
+
+Hoisting does not work the same for all variable types. And so let's analyse how hoisting works for function declarations, variables defined with var, variables defined with let or constant and function expressions and also arrow functions.
+
+1) FUNCTION DECLARATION : 
+
+> HOISTED ? Function declarations are actually hoisted and the initial value in the variable environment is set to the actual function. So in practise, what this means is that we can use function declarations before they are actually declared in the code.  Again, because they are stored in the variable environment object even before the code starts executing. This is because of hoisting. Function declarations are block scoped. This is only true for strict mode. In sloppy mode, which you shouldn't, then functions are functions scoped.
+
+2)Variables declared with var :
+
+> HOISTED ? Yes, they are also hoisted, but hoisting works in a different way here. So unlike functions, when we try to access a var variable before it's declared in a code, we don't get declared value, but we get undefined. And this is a really weird behaviour for beginners. You might expect that you simply get an error when using a variable before declaring it, or to get the actual value, but not to get undefined, because getting undefined is just really weird. And it's not really useful either, right? And actually, this behaviour is a common source of bugs in javascript. So this is one of the main reasons why modern javascript we almost never use var.
+
+
+3) LET AND CONST VARIABLES :
+
+>> HOISTED ? Not hoisted. I mean, technically they are actually hoisted, but their value is basically set to uninitialized. So there is no value to work with at all and so in practise, it is as if hoisting was not happening at all. Instead, we say that these variables are placed in a so called Temporal Dead  Zone, or TDZ, which makes it so that we can't access the variables between the beginning of the scope and the place where the variables are declared. So as a consequence, if we attempt to use a let or const variable before it's declared, we get an error. Also, keep in mind that let and constant are block scope. So they exist only in the block in which they were created. And all these factors together is basically the reason why let and constant were first introduced into the language and why we use them now instead of var in modern javascript.
+
+4) Function expressions and Arrow functions.
+
+>>HOISTED ?  Well, it depends if they were created using var or const or let. Because keep in mind that these functions are simply variables, and so they behave the exact same way as variables in regard to hoisting. This means that a function expression or arrow function created with var is hoisted to undefined. But if created with let or constant, it's not usable before it's declared in a code because of the temporal dead zone. So again, just like normal variables right? And this is actually the reason why I told you earlier, that we cannot use function expressions before we write them in a code, unlike function declarations .
+
+**************************************
+
+>> TEMPORAL DEAD ZONE (TDZ), let and const :
+
+*/
+const myName = 'Somnath';
+
+if (myName === 'Somnath') {
+  console.log(`Somnath is a ${job}`);
+  const age = 2025 - 2000;
+  console.log(age);
+
+  const job = 'student';
+  console.log(x);
+}
+/*
+
+ So in this example code, we're gonna look at the job variable. It is a const, so it's scoped only to this block, and it's gonna be accessible, starting from the line where it's defined. Why? Well, because there is this temporal dead zone for the job variable. It's basically the region of the scope in which the variable is defined, but can be used in any way. So it is as if the variable didn't even exist. Now, if we still tried to access the variable while in the TDZ, like we actually do in the first line of this if block, then we get a reference error telling us that we can't access job before initialization. However, if we try to access a variable that was actually never even created, like in the last line here, where we want to log x, then we get a different error message saying that x is not defined at all. What this means is that job is, in fact, in the temporal dead zone, where it is still initialised, but the engine knows that it will eventually be initialised, because it already read the code before and set the job variable in the variable environment uninitialized. Then when the execution reaches the line where the variable is declared, it is removed from the temporal dead zone and its safe to use. So to recap, basically each and every let and const variable get their own temporal dead zone that starts at the beginning of the scope until the line where it is defined. And the variable is only safe to use after the TDZ. Alright. Now, what actually javascript have a need to have TDZ ? Well, the main reason that TDZ was introduced in ES6 is that the behaviour I described before ,makes it way easier to avoid and catch errors. Because using a variable that is set to undefined before it actually declares, can cause  serious bugs, which might be hard to find. 
+ 
+Accessing variables before declaration is bad practise and should be avoided. And the best way to avoid it is by simply getting an error when we attempt to do so. That's exactly what the temporal dead zone does. A 2nd and smaller reason why the TDz exists is to make const variables actually work the way they are supposed to. So as you know, we can't reassign const variables. So it would not be possible to set them to undefined first, and then assign their real value later. Const  should never be reassigned. And so it's only assigned when execution actually reaches the declaration. And that makes it impossible to use a variable before.
+
+Now, if hoisting creates so many problems, why does it exist in the first place? . So the creator of javascript basically implement hositing so that we can use function declarations before we use them. Because this is essential for some programming techniques, such as mutual recursion. Some people also think that it makes code a lot more readable. Now, the fact that it also works for var declarations is because that was the only way hoisting could be implemented at the time. So the hoisting of var variables is basically just a byproduct of hoisting functions. And it probably seems like a good idea to simply set variables to undefined, which is inside is not really that great. But we need to remember that javascript was never intended to become a huge programming language that it is today. Also, we can't remove this feature from the language now.
+
+*/
