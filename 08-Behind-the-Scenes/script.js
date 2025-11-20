@@ -380,12 +380,12 @@ Hoisting does not work the same for all variable types. And so let's analyse how
 const myName = 'Somnath';
 
 if (myName === 'Somnath') {
-  console.log(`Somnath is a ${job}`);
+  // console.log(`Somnath is a ${job}`);
   const age = 2025 - 2000;
   console.log(age);
 
   const job = 'student';
-  console.log(x);
+  // console.log(x);
 }
 /*
 
@@ -395,4 +395,127 @@ Accessing variables before declaration is bad practise and should be avoided. An
 
 Now, if hoisting creates so many problems, why does it exist in the first place? . So the creator of javascript basically implement hositing so that we can use function declarations before we use them. Because this is essential for some programming techniques, such as mutual recursion. Some people also think that it makes code a lot more readable. Now, the fact that it also works for var declarations is because that was the only way hoisting could be implemented at the time. So the hoisting of var variables is basically just a byproduct of hoisting functions. And it probably seems like a good idea to simply set variables to undefined, which is inside is not really that great. But we need to remember that javascript was never intended to become a huge programming language that it is today. Also, we can't remove this feature from the language now.
 
+
+***********************************************************************************************
+
+>>>>>>> HOISTING AND TDZ IN PRACTICE >>>>>>>>>>>
 */
+
+//variables
+// console.log(me); undefined
+// console.log(job);  reference error, currently in dead
+// console.log(year);  reference error, currently in dead zone
+
+var me = 'Somnath';
+let job = 'student';
+const year = 2000;
+
+//Functions
+
+console.log(addDecl(2, 3)); // output: 5
+// console.log(addExp(2, 3)); // reference error
+
+// console.log(addArrow);
+// console.log(addArrow(2, 3)); // type error: not a function.
+
+function addDecl(a, b) {
+  return a + b;
+}
+
+const addExp = function (a, b) {
+  return a + b;
+};
+
+var addArrow = (a, b) => a + b;
+
+//EXAMPLE ( Pitfall of hoisting) :
+
+console.log(undefined);
+if (!numProducts) deleteShoppingCart();
+
+var numProducts = 10;
+
+function deleteShoppingCart() {
+  console.log('All products deleted!');
+}
+
+//Conclusion is that dont use var, use const to declare variables or let if you wish to change it later.Also declare the variables at the top of the code.
+
+var x = 1;
+let y = 2;
+const z = 3;
+
+// console.log(x === window.x);
+// console.log(y === window.y);
+// console.log(z === window.z);
+
+/************** THIS KEYWORD ***********************************88
+
+this keyword or this variable is a special variable that is created for every execution context, and therefore any function. In fact, we learned before it is one of the 3 components of any execution context, along with the variable environment and scope chain. The this keyword will always take the value of the owner of the function in which the this keyword is used. We also say that it points to the owner of the function. For now, the value of the this keyword is not static , so it's not always the same. It depends on how the function is actually called and its value is only assigned when the function is actually called. So it's very different from a normal value in this regard. If we said, for example, X to 5 then X will always just be 5. But this keyword, again, depends on the way in which a function is called. But what does it actually mean? Well, let's analyse four different ways in which functions can be called.
+
+And the first way to call a function is as a method. So as a function attached to an object. So when we call a method, the this keyword inside that method will simply point to the object on which the method is called. Or in other words, it points to the object that is calling the method .Let's illustrate this with the simple example.
+*/
+const somnath = {
+  name: 'somnath',
+  year: 2000,
+  calcAge: function () {
+    return 2025 - this.year;
+  },
+};
+
+somnath.calcAge(); //25
+/*
+  So the method here is the calcAge method, again, because it's a function attached to the somnath object. In the last line here, we then call the method, then, as you see inside the method, we use the this keyword. Now, according to what we just learned, what should be the value of the this keyword here? It should be somnath, because that is the object that is calling the method down there in the last line, isn't it? And so then on somnath, we can access all the properties that it has. And so this.year will become 2000 because that's somnath.year as well. So in this case, writing somnath.year would have the exact same effect as this.year. But doing it this way is the way better solution. For many reasons that we will get into throughout the course.
+  
+  Another way we call functions is by simply calling them as normal functions. So not as method, and so not attached to any object. In this case, the this keyword will simply be undefined. However, that is only valid for strict mode. So if you're not in strict mode, this will actually point to the global object, which, in case of the browser, is the window object and that can be very problematic. And so this is yet another very good reason to always use strict mode.
+  
+  Next we have arrow functions. And while arrow functions are not exactly a way of calling functions, it's an important kind of function that we need to consider. Because remember, error functions do not get their own this keyword. Instead, if you use the this variable in an arrow function, it will simply be the this keyword of the surrounding function, so of the parent function. And in technical terms, this is called the lexical this keyword, because it simply gets picked up from the outer lexical scope of the arrow function .So never, ever forget this very important property of arrow functions. 
+  
+  And finally, if a function is called as an event listener, then the this keyword will always point to the dom element that the handler function is attached to. It's also important to know what the this keyword is not. So this will never point to the function in which we are using it. Also, the disc keyword will never point to the variable environment of the function. And these are two pretty common misconceptions. And so that's why I'm addressing them here. OK, so again, the rules that I showed you here is all that you need to know. Alright. And now, just for the sake of completion, there are actually other ways in which we can call a function. For example, using the new keyword or the call, apply and bind methods.We will see this later.
+
+*******************************************************************************************
+*/
+
+// ********************* THIS KEYWORD IN PRACTICE ****************
+
+// console.log(this);
+//this keyword in the global scope is simply the window object.
+
+const calculateAge = function (birthYear) {
+  // console.log(2025 - birthYear);
+  console.log(this); //inside a regular fn call the value of this will be undefined because of strict mode.
+};
+calculateAge(2000);
+
+const calculateAgeArrow = birthYear => {
+  // console.log(2025 - birthYear);
+  console.log(this); // window object because this keyword does not get it's own this keyword, instead the arrow function uses the lexical this keyword(of parent scope > in this case, it's window)
+};
+calculateAgeArrow(2000);
+
+const Somnath = {
+  year: 2000,
+  calcAge: function () {
+    console.log(this); // will point to the Somnath object
+    console.log(2025 - this.year);
+  },
+};
+
+// Somnath.calcAge();
+
+//When we have a method call, the this keyword inside of the method will be the object that is calling the method, in this case, the Somnath object.So Somnath is the owner of the method.
+
+/////////////////////////////////
+
+const matilda = {
+  year: 2020,
+};
+
+matilda.calcAge = Somnath.calcAge;
+//calcAge function is also in matilda now. This is called method borrowing.
+
+matilda.calcAge();
+//The this keyword will always point to the object that is calling the method.Here we are calling the method on matilda. so this keyword will point to matilda.
+
+const f = Somnath.calcAge;
+// f(); //undefined and type error: This happens because this f function is now just a regular function call. It is not attached to any object. There is no owner of this f function anymore at this point and therefore it's just a regular function call. so the this keyword is also undefined.
