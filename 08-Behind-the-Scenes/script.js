@@ -519,3 +519,232 @@ matilda.calcAge();
 
 const f = Somnath.calcAge;
 // f(); //undefined and type error: This happens because this f function is now just a regular function call. It is not attached to any object. There is no owner of this f function anymore at this point and therefore it's just a regular function call. so the this keyword is also undefined.
+//**********************************************************************************************888 */
+
+// REGULAR FUNCTIONS VS ARROW FUNCTIONS :
+
+var firstNames = 'Matilda';
+const jonas = {
+  firstNames: 'Jonas',
+  year: 2000,
+  calcAge: function () {
+    // console.log(this);
+    console.log(2037 - this.year);
+
+    //Solution 1
+    // const self = this;
+    // const isMillenial = function () {
+    //   console.log(self);  //self or that
+    //   // console.log(this.year >= 1981 && this.year <= 1996);
+    //   console.log(self.year >= 1981 && self.year <= 1996);
+    // };
+
+    //Solution 2 : this keyword
+
+    const isMillenial = () => {
+      console.log(this); //self or that
+      // console.log(this.year >= 1981 && this.year <= 1996);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+
+    isMillenial(); // 'this' will return undefined as this is a normal function call even though it happens inside of a method and the rule says inside a normal function call the this keyword must be undefined.
+  },
+
+  greet: () => {
+    console.log(this);
+    console.log(`Hey! ${this.firstNames}`);
+  },
+};
+
+jonas.greet(); //undefined as arrow function does not get its own this keyword as it will use its parent this which is the global scope.
+
+console.log(this.firstNames);
+jonas.calcAge();
+
+//Never use arrow function as method.
+
+//Arguments keyword:
+
+// function addDecl(a, b) {
+//   return a + b;
+// }
+
+const addExpression = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpression(2, 5);
+addExpression(2, 5, 8, 12);
+
+//It is completely legal to add more arguments, they dont have a name in the above example but they exist and we can see them if we do console.log(arguments) in an array.
+
+var addArrow = (a, b) => {
+  // console.log(arguments);
+
+  return a + b;
+};
+addArrow(2, 5, 6);
+
+//Arrow functions do not have this arguments . It will show undefined. So arguents keyword exist but only in function expressions and function decalarations and not in arrow functions.
+
+/////////////////////////////////////////////////////////////////
+
+//Memory management : Primitives vs objects.
+/* 
+Memory management in the context of javascript is how the javascript engine allocates space in memory for creating variables and later freeze up that memory space, which was taken up by variables that are no longer needed so that applications runs smoothly and efficiently without running out of memory. So basically, how and where are variables created in javascript? Now, unlike lower level programming languages like C or C++, where developers actually have to manually reserve pieces of memory for their variables, javascript automatically manages the memory behind the scenes for us. This makes writing code a lot easier and faster, and it reduces the risk of introducing bugs like memory leaks. So this sounds great, but how does it all work? Well, every single value that we create in our applications goes through something that we call a memory lifecycle. So in this life cycle, first, a piece of memory is allocated whenever we create any value, for example, to assign that value to a new variable in our code. So essentially, each time we declare a variable with a new value, no matter if it's a single value or a huge object, the javascript engine will automatically reserve a piece of memory to store that value. So the value is being held by the variable that we just created. In this example, it's to store 23.7. But again, it could be an object or a function, or whatever we want. 
+
+Then, as the app runs in the user's browser, the allocated piece of memory is used whenever the stored value is being accessed, for example, to write, read or update the value. So this part is pretty obvious, but it's important to mention that this is also part of the memory lifecycle. 
+
+And finally, what happens when the value is no longer needed? Well, in that case, at the end of a value's life cycle, the memory it occupies gets released. Or in other words, when a value is not necessary anymore it's deleted from memory and the freed up memory can then be used for new future values. And we're gonna learn later how exactly that happens behind the scenes. But for now,let's start to look at the memory allocation.
+
+The main thing to understand about memory allocation in JS is the fact that for different types of values, memory is actually allocated in different places in the javascript engine. But what are those different types of values? It's either a primitive value or an object. So primitive data types are numbers, strings, booleans, undefined, null, symbols and big int. Then everything else is object. So that includes objects created with object literal, arrays and even functions. Now we need to remember the JS engine itself. The engine has two main components: the call stack where functions are executed and the heap where objects are stored in memory. And from this, we can already start to understand how memory is allocated for different data types. 
+
+So again, as I just mentioned, all our objects will get stored right in the memory heap.It's the memory heap where memory is allocated for objects. On the other hand, all primitive values are going to be stored in the call stack , where the functions run and in detail primitive values are actually stores in the execution contexts in which they are created. Now there might be some exceptions to those rules, because modern javascript engines are highly sophisticated and dynamic. So that, for example, they might store an extremely long string, which is actually a primitive in the heap so that the call stack where strings are usually placed, can be optimised. But in general, as a mental model, this is how memory allocation works. So in summary, memory for objects is allocated in the heap and for primitives in the call stack. But that's actually not all.
+
+So besides primitives and objects, there also something that we call references to objects. And these are also stored in the call stack. Now what do I mean by object references? references to objects are one of the most important things that you need to understand.
+
+
+const name = 'Jonas';
+const age = calcAge(1991);
+let newAge = age;
+newAge++;
+
+const location = {
+  city: 'Dhanbad',
+  country: 'India',
+  };
+
+  const newLocation = location;
+  newLocation.city = 'Monaco';
+
+  console.log(location)
+
+  function calcAge(birthYear){
+    const now = 2037;
+    const x = now - birthYear;
+    return x;
+    }
+
+
+So here we have a piece of code that will go through together and analyse exactly what's gonna happen to both the call stack and heap as the code runs. So when the code starts executing in the first line, the global execution context is placed in the call stack and the value of the variable name is set to Jonas right in the variable environment of this execution context. That's because Jonas is just a string which is a primitive and so therefore, this value is stored right here in the call stack. Now technically these primitive values are stored in the variable environment of EC. but these since live in the call stack , we say primitive values are stored in the stack.
+
+Next up, age is calculated by calling calcAge, which is going to create and place a new execution context on the top of the stack as always. And now the values created in this function will be stored in their corresponding EC , so again in the call stack because the variables now and x both contains numbers and therefore primitive values and primitive values belong to the stack . 
+
+Then the function returns and its execution context pops off the stack and with it the values that it was holding in its variable environment are also gone. The return value of 46 is stored as the age variable in the global execution context as well. Next we declare yet another variable, this one called newAge, with the simply set to the same value as the value age. so the value of 46 will also get stored in the stack as newAge here. Then in the next line, we increase the value of newAge by 1 making it 47. Now, as we update newAge from 46 to 47 the primitive value stored in age stays, of course, at 46. So again, age, which is where the original value came from, remains unchanged. So each of the variables holds its own copy of the value at all times.
+
+Now this is pretty intuitive, but it's very different from how objects work, as we'll see in a minute And so speaking of objects, we create an object right here in the next line called location. And where are objects stored in the engine? This object will live in the heap. So that's where the engine stores objects. But now, if we think about this, how will our code actually know that this object is supposed to be called locations? Or in other words, how will we be able to use this object in the rest of the codes? Well, that's where the concept of reference comes into play. So the way this works is that in the execution context, the variable location will actually hold a reference to the object. So again, location will not be the object itself, but just a reference to the object in the heap .in technical terms it's the memory address of the object that will be stored as the value of location. But that's not really that important. What you need to understand is that variables in the call stack do not hold objects themselves, but references pointing to these objects.
+
+Now to us developers, this mechanism is completely hit. So on the surface, it does look as if a variable is actually holding the object itself. When, in fact, it's only storing the reference to the object behind the scenes And that's actually the huge difference, as we're about to see. Because as we move on to the next line here, we create a copy of location object called newLocation. So here is where it gets really interesting. So if a variable like location simply contains a reference to the object, then as we copy the variable, what we're actually copying is only the reference to the object, but not the object itself. Or in other words, when we said newLocation to the same value as location, then we're simply copying the reference, because it's the reference that is stored in the variables in the stack. So in this case, this means that newlocation and location are pointing to the exact same object in the heap and this is very different from how primitives work, where each variable actually holds its own copy of the primitive value, because there are no references involved at all.
+
+And this idea of object references as huge implications. So cheque this. In the next line of code, we're mutating the new location object by setting its city property to Lisbon. So this is what it looks like in the heap. So far, so good, right? Well, not so fast, because what happens if we try to check out the original location object? Anything you can already start to see the result here, just by looking at the heap and the references. So as we log the original location to the console, we now get the mutated object here, where the city property is also set to Lisbon. And this actually makes sense, right? If both location and newLocation contain the exact same reference, that points to the same object in the heap, then it makes perfect sense that changing the object through one of the variables will also get reflected in the other one, again, because location and new location are, in fact, the same object. In our case here, it means that mutating new location will destroy the value of the city property in the original location object. But now, just for the sake of completeness, the callAge function is actually behind the scenes, also just an object, which means that this function also gets stored in the heap. So then the variable calcAge will simply hold the reference to this object as well. So basically, exactly the same thing that we just discussed a moment ago. Now, this function has actually already been hoisted, so it actually was already in the heap all this time, otherwise we couldn't have used this function right in line 2.
+
+*********************************************************************
+
+>> Object references in practise (sShallow vs Deep copies):
+
+
+*/
+const jessica1 = {
+  firstName: 'jessica',
+  lastName: 'williams',
+  age: 27,
+};
+
+function marryPerson(originalPerson, newLastName) {
+  originalPerson.lastName = newLastName;
+  return originalPerson;
+}
+
+const marriedJessica = marryPerson(jessica1, 'Davis');
+
+// const marriedJessica = jessica1;
+// marriedJessica.lastName = 'Davis';
+
+console.log('Before', jessica1);
+console.log('After', marriedJessica);
+
+//marriedJessica did not create a new object in the heap , instead this marriedJessica is simply the exact same reference as jessica. so now marriedJessica and jessica are two variables which point to the exact same objext in the heap. so when we made a change in the marriedjessica , same is reflected in the object jessica because they are essentially two different names for the same thing.
+
+//
+const jessica = {
+  firstName: 'jessica',
+  lastName: 'williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+//Shallow copy
+const jessicaCopy = { ...jessica }; //Spread operator
+jesicaCopy.lastName = 'Davis';
+
+console.log(jessica, jessicaCopy);
+
+// jessicaCopy.family.push('Mary');
+// jessicaCopy.family.push('John');
+
+// console.log('Before', jessica);
+// console.log('After', jessicaCopy); // because arrays are also objects , inspite of the spread operator , the family property will get a brand new object in the heap and the family property will create a object reference to this object. so while copying jessica using spread operator we also copied the reference to the array i.e. object. this means both jessica and jessicaCopy have the family property which both point to the same object in the heap. So essentially jessicaCopy only copied the first level of the jessica object and not the nested object.
+
+// Since we only copied the first level of object, this is called shallow copy.
+
+//Deep copy or deep clone
+
+const jessicaClone = structuredClone(jessica);
+
+jessicaClone.family.push('Mary');
+jessicaClone.family.push('John');
+
+console.log('Original', jessica);
+console.log('Clone', jessicaClone);
+
+//StructuredClone is essential for doing deep copies of objects.
+
+// *****************************************************************************************
+/*
+
+Memory collection : Garbage collection :
+
+// How javascript turns behind the scenes in order to keep our memory clean and healthy.
+
+Step 1 : Allocate memory : let temp : 23.7 .
+Step 2 : Use memory : temp+ 5;
+                      round(temp)
+Step 3 : Release memory 
+        temp is removed from memory
+
+So remember how in javascript, each value that we create goes through a memory lifecycle, where first memory is allocated for the value, then allocated piece of memory is used and finally, when no longer needed, the piece of memory is released. Now we already talked in depth about step 1, Step 2 is pretty obvious, so there's actually nothing to learn there. And so let's now turn our attention to the way in which memory is released in the javascript engine in step 3. So basically, we're gonna answer the question, how is memory freed up after we no longer need a certain value. Now, since these values are stored in the stack and the heap, we need to analyse both these storage mechanisms.
+
+So first off, in the call stack, it's all very simple, because the variable environments where primitives are stored are simply deleted when the corresponding execution context pops off the stack. So as an example, here is the call stack with the global execution context and two additional ones for 2 function calls.
+
+getTasks() EC
+tasks = 🟢;
+
+calcAge() EC
+y = 'Jonas'
+z = true;
+
+Global EC
+x = 234;
+hobbies = 🔴;
+
+The global execution context has the X variable, which is clearly a primitive, and the execution context of the calcAge function has variables Y and Z. So these three variables are clearly stored in the call stack. And so then, as the execution context pops off the stack, the variable environments of the calcAge function will just be removed from memory together with the execution context that just popped off the stack .Variables are simply stored in an execution context in a call stack. And as soon as the context is gone, so are the variables. And the memory that they occupied is simply released for future usage.
+
+Now notice what happens with the X variable in the global execution context. Since this execution context never disappears, this value will stay in the stack forever. Now, this is no big deal. I just wanted to make it clear that global variables will, of course, never be deleted, which is pretty intuitive,
+
+I think. OK, but now let's move on to the heap, where memory management is considerably more complex. So in order to delete all unused objects from the heap and free up memory, javascript engines employee process called garbage collection. This garbage collection is the central tool for memory management in any javascript engine. And notice how I said engine here, because it's indeed the engine that runs garbage collection automatically whenever it sees it. We developers cannot control when the heap memory is cleared by garbage collection, which is actually a great thing, because this automatic memory management makes our lives a lot easier. So you can basically think of garbage collection as an automatic cleaning service that comes into your house from time to time and identifies and removes old stuff that no one is using anymore. But anyway, there are different ways to implement garbage collection, but all modern engines use an algorithm called Mark and Sweep. And let's now quickly check out how it works by bringing back the call stack and heap.
+
+Now, first of all, here in red and green, we have objects called hobbies and tasks. And so as we just learned previously, these variables actually store references to the actual objects stored in the heap. Let's now also say that the red object references some other object, which, of course, is also stored in the heap. And the green object references just another object. And by the way, I keep saying objects that are stored in the heap. But as we just learned earlier, these can actually be not just objects, but also arrays, functions and other data structures like sets or maps. Ok, but now back to the mark and sweep object. So the first step of garbage collection with the mark And sweep algorithm is the mark face, where all objects that are reachable from a so called root are marked as a 'alive'. Now, roots are basically starting points from which the algorithm starts to look for a life or reachable objects. And different things can be roots, but the most obvious ones are the global execution contexts, which is always present in any other execution context of running functions. So again, the algorithm starts looking for objects in these places called roots. 
+
+So in this example, the green and red objects are obviously alive because it can be reached from one of the roots. And the same is true for the blue and grey objects. They are also alive because they can also be reached from one of the other reachable objects .But now let's take it one step further, because an object can be reached by more than just the global execution context for one of the other contexts in the stack. They can also be reached by event listeners or active timers or by something that we call closures. And more about closures later. So these two are also routes for the mark and sweep algorithm. And now let's say that we have this purple object that is referenced and therefore reachable from an active timer. And this yellow object that is reachable from a closure. So both these are alive as well. And now finally, just to make this a bit more complete, let's imagine that we also have this pink object in the heap, which isn't being referenced by anything. And so this one is not marked as alive because it cannot be reached by any of the roots. So we can basically say that this one is dead Ok? So with this, we basically just simulated the mark face. So phase one in the mark in sweep algorithm. 
+
+The 2nd phase is the sweep phase, where all the unmarked objects, Or in other words, all the unreachable objects are simply deleted. Basically, the algorithm has decided in the first step that these objects are no longer needed, and that the memory occupied by them can be reclaimed and used for future memory allocations for future objects. So to simulate this in our example here, right now, we only have 1 object that is unreachable, and that's the pink object. So what's gonna happen in this phase? Well, that's right. The pink object will be deleted, and the memory will be reclaimed. And so just like this, the automatic garbage collection has ensured that our memory stays nice and clean and not cluttered with objects that can no longer be accessed anyway, and that we therefore no longer need in the heap.
+
+Alright? But now what happens when you get task function finishes execution and its context pops off the stack? Well, let's simulate that or garbage collection runs again and again. I want to just emphasise that there is no way to control or trigger garbage collection manually from our codes. We also have no way of knowing when and how often garbage collection happens. It depends a few factors, like how much memory or app is consuming, how much memory is available, which javascript engine the browser is using, and so on. But anyway, for the sake of this example, let's say the garbage collection algorithms runs again at this point. So now with the get tasks variable environment gone, there's really no one to reference the green object anymore, right? Therefore, the green object and also the blue object are no longer reachable from any root. They are no longer alive. Therefore, as the process moves into the sweep phase, both the green and the blue objects will be swept away at the memory that they occupied will be reclaimed .
+
+But now let's turn our attention to the red object, and let's ask ourselves the question, how could this object ever be deleted? Well, the answer is that it can't. The red object will never be deleted, so it will stay in the heap forever, because the global execution context will never disappear. So this route will always exist and will also be able to reach the red object. This means that any globally defined object will never be garbage collection even if we no longer needed in our code. And what about the purple and yellow object? What if our app also no longer needs those objects? Well, this idea of an object being no longer needed actually brings us to a final topic of this lecture, which is memory leaks.
+
+So a memory leak happens when an object that is actually no longer needed by our application is incorrectly still reachable by the garbage collector from one of the routes. As a result, the object is marked as a life and is not deleted. Again, even though we actually no longer need it in our code, so it should be deleted, but it can't. And you can think of a memory leak it basically like forgetting to throw away some stuff that you no longer need. So this will then clutter up your house unnecessarily. But back to javascript. This happens when an object is still incorrectly reference from somewhere. And one major source of this wrong and undesired references are old  and unnecessary event listeners and timers. if, for example,a timer creates an object, this object will always be reachable, unless the developer actively deletes the timer when they no longer need it.Otherwise if a timer forever stays around and keeps running , It will forever reference the unnecessary object causing a memory leak. the same is true for an event listener that might no longer be needed at any point. So in order to avoid memory leaks, make sure to always deactivate timers and events Whenever they are no longer required especially if they reference large objects. Also avoid declaring large objects as global objects, because these will also never be garbage collected, as we just saw earlier. So that's going to lead to memory leaks as well.
+
+Now, memory leaks can be a huge topic, but there's no need to take even deeper into it at this point. Alright. So this is a brief overview of how the garbage collection process works. It's going to run over and over inside the user's browser while they're using the application, making sure that memory stays clean and uncluttered of objects that are no longer necessary over time. Now, in reality, memory management is way more complex than justice. It's an extremely complicated process There are actually multiple heaps. Objects are moved from one heap to another, depending on their age. The garbage collector has multiple algorithms for the different heaps, like generational garbage collection and so on. But I'm absolutely sure that this broad overview that you just learned about is more than enough at this point. So this already gives you a great idea of how memory is automatically managed inside the engine. And now, before we move on, I need to quickly mention 4 more big topics about how javascript works behind the scenes that are not in the section, but closer to where we actually need to learn about them. The 1st one, which I actually just mentioned in the last slide, is closures. So we're going to dive really deep into closures once we reach the closer look at functions section Next one of the most fundamental concepts of javascript is prototype inheritance. But we're only going to talk about that in the object oriented programming section of this course, because it doesn't make sense to learn about this now, or to forget it all until we finally reach that section. The same is true for a detailed lecture on the event loop. We already introduced the event loop in the section, but in section asynchronous javascript, we'll dive really deep into how exactly this event loop works and why it's such a fundamental piece of javascript engine. Finally, we'll have a few lectures on how the Dom actually works behind the scenes as well in the advanced dom and event section, so that you can then apply what you learn right away. 
+
+*/
